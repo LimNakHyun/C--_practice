@@ -22,15 +22,16 @@ int main()
     if(pow(sqrt_m, 2) == m) min = m;
     else min = sqrt_m + 1;
 
-    int max = sqrt(n);
+    max = sqrt(n);
 
+    int sum = 0;
     for(int i = min; i <= max; i++) {
-
+        sum += pow(i, 2);
     }
 
-    // if(perfect_sum == 0)
-    //     cout << -1 << endl;
-    // else
-        // cout << perfect_sum << "\n" << min_perfect_number << endl;
+    if(sum == 0)
+        cout << -1 << endl;
+    else
+        cout << sum << "\n" << pow(min, 2) << endl;
 
 }
