@@ -2,19 +2,19 @@
 #include <vector>
 #include <stack>
 
-using namespace std;
-
 int main()
 {
+    using namespace std;
+
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
 
     stack<int> stk;
     vector<string> vtr;
+
     int n;
     cin >> n;
-
     int* arr = new int[n] {0,};
 
     for (int i=0; i<n; i++)
@@ -22,40 +22,34 @@ int main()
         cin >> arr[i];
     }
 
-    int arridx = 0;
     int stkidx = 1;
-
-    while (arridx < n)
+    for (int i=0; i<n; i++)
     {
-        while (arr[arridx] >= stkidx)
+        if (arr[i] >= stkidx)
         {
-            stk.push(stkidx);
-            vtr.push_back("+");
-            if (arr[arridx] == stkidx)
+            while (arr[i] >= stkidx)
             {
-                stk.pop();
-                vtr.push_back("-");
+                stk.push(stkidx++);
+                vtr.push_back("+");
             }
-            stkidx++;
+            stk.pop();
+            vtr.push_back("-");
         }
-        arridx++;
-        while (arr[arridx] < stkidx)
+        else  // arr[i] < stkidx
         {
-            if (stk.top() == arr[arridx])
+            if (stk.top() > arr[i])
             {
-                stk.pop();
-                vtr.push_back("-");
-                arridx++;
+                cout << "NO";
+                break;
             }
             else
             {
-                arridx = n + 1;
-                cout << "NO" << endl;
-                break;
+                stk.pop();
+                vtr.push_back("-");
             }
         }
     }
-    if(stkidx > n)
+    if (stk.empty())
     {
         for (int i=0; i<vtr.size(); i++)
         {
